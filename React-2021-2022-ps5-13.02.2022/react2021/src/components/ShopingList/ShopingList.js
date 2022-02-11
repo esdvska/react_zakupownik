@@ -2,16 +2,19 @@ import commonColumnsStyles from "../../common/styles/Columns.module.scss";
 import { useEffect, useState } from "react";
 
 function ShopingList(props) {
-  // const [shoppingList, setShoppingList] = useState(props.shoppingList);
   const productsToBuy = props.shoppingList.map((product) => ({
     ...product,
     id: Math.random(),
   }));
+
+  const removeFromShoppingList = (id) => {
+    props.remove(productsToBuy.filter((product) => product.id !== id));
+  };
   const productsToDisplay = productsToBuy.map((product) => {
     return (
       <li
         onClick={() => {
-          this.props.remove(product.nazwa);
+          removeFromShoppingList(product.id);
         }}
         key={product.id}
       >
@@ -19,9 +22,7 @@ function ShopingList(props) {
       </li>
     );
   });
-  // useEffect(() => {
-  //   setShoppingList((state) => props.shoppingList);
-  // }, [props.shoppingList]);
+
   return (
     <div className={commonColumnsStyles.App}>
       <header className={commonColumnsStyles.AppHeader}>

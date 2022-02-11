@@ -8,26 +8,27 @@ import { useState } from "react";
 
 function App() {
   const [shoppingList, setShoppingList] = useState([]);
+  const [productsToDisplay, setProductsToDisplay] = useState(produkty);
+
   const addToShoppingList = (product) => {
     setShoppingList((state) => [...state, product]);
   };
-  const removeFromShoppingList = (nazwa) => {
-    // let shoppingList = this.shoppingList;
-    // const index = shoppingList.indexOf()
+  const addNewProduct = (product) => {
+    // setShoppingList(state => )
   };
   return (
     <div className={styles.appWrapper}>
-      <AddProducts />
-      <ProductsFilters />
+      <AddProducts addNewProduct={addNewProduct} />
+      <ProductsFilters
+        produkty={produkty}
+        sendFilteredProductsToParentComponent={setProductsToDisplay}
+      />
       <div className={styles.columnsWrapper}>
         <ProductsList
-          produkty={produkty}
+          produkty={productsToDisplay}
           addToShoppingList={addToShoppingList}
         />
-        <ShopingList
-          shoppingList={shoppingList}
-          remove={removeFromShoppingList}
-        />
+        <ShopingList shoppingList={shoppingList} remove={setShoppingList} />
       </div>
     </div>
   );
