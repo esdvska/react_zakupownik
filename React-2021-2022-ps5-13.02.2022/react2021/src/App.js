@@ -19,7 +19,7 @@ function App() {
   const addNewProduct = (product) => {
     setProducts((prev) => [...prev, product]);
     setProductsToDisplay((prev) => [...products, product]);
-    setResetFilters((prev) => true);
+    setResetFilters((prev) => !prev);
   };
 
   return (

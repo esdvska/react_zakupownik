@@ -11,6 +11,13 @@ class ProductsFilters extends React.Component {
     };
   }
 
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.reset !== this.props.reset) {
+      console.log(this.props);
+      this.handleResetFilters();
+    }
+  };
+
   handleOnlyFoodChange = (event) => {
     this.setState(
       { ...this.state, searchOnlyFood: !this.state.searchOnlyFood },
@@ -89,7 +96,7 @@ class ProductsFilters extends React.Component {
           <input
             type='checkbox'
             onChange={this.handleOnlyFoodChange}
-            value={searchOnlyFood}
+            checked={searchOnlyFood}
           ></input>
           <p>
             Kategorie:{" "}

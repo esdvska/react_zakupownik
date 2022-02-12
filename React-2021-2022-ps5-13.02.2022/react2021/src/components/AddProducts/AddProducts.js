@@ -20,9 +20,9 @@ function AddProducts(props) {
       kategoria: newProductType,
       produktSpozywczy: isFoodProduct,
     });
-    setNewProductName((prev) => "");
-    setIsFoodProduct((prev) => false);
-    setNewProductType((prev) => "");
+    setNewProductName("");
+    setIsFoodProduct((prev) => !prev);
+    setNewProductType("");
   };
 
   return (
@@ -41,8 +41,8 @@ function AddProducts(props) {
       <label>Produkt spożywczy</label>
       <input
         type='checkbox'
-        value={isFoodProduct}
-        onChange={handleIsFoodProductChange}
+        checked={isFoodProduct}
+        onChange={(e) => setIsFoodProduct(e.target.checked)}
       ></input>
       <button onClick={addProduct}>Dodaj</button>
     </div>
