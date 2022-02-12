@@ -4,23 +4,30 @@ import AddProducts from "./components/AddProducts/AddProducts";
 import ProductsFilters from "./components/ProductsFilters/ProductsFilters";
 import styles from "./App.module.scss";
 import produkty from "./common/consts/produkty";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [products, setProducts] = useState(produkty);
   const [shoppingList, setShoppingList] = useState([]);
-  const [productsToDisplay, setProductsToDisplay] = useState(produkty);
+  const [productsToDisplay, setProductsToDisplay] = useState(products);
+  const [resetFilters, setResetFilters] = useState(false);
 
   const addToShoppingList = (product) => {
     setShoppingList((state) => [...state, product]);
   };
+
   const addNewProduct = (product) => {
-    // setShoppingList(state => )
+    setProducts((prev) => [...prev, product]);
+    setProductsToDisplay((prev) => [...products, product]);
+    setResetFilters((prev) => true);
   };
+
   return (
     <div className={styles.appWrapper}>
       <AddProducts addNewProduct={addNewProduct} />
       <ProductsFilters
-        produkty={produkty}
+        produkty={products}
+        reset={resetFilters}
         sendFilteredProductsToParentComponent={setProductsToDisplay}
       />
       <div className={styles.columnsWrapper}>

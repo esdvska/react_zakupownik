@@ -10,20 +10,23 @@ class ProductsFilters extends React.Component {
       searchProductType: "",
     };
   }
+
   handleOnlyFoodChange = (event) => {
-    this.setState({ searchOnlyFood: event.target.checked }, () =>
-      this.filterProducts()
+    this.setState(
+      { ...this.state, searchOnlyFood: !this.state.searchOnlyFood },
+      () => this.filterProducts()
     );
   };
   handleSearchPhraseChange = (event) => {
-    this.setState({ searchPhrase: event.target.value }, () =>
+    this.setState({ ...this.state, searchPhrase: event.target.value }, () =>
       this.filterProducts()
     );
   };
 
   handleSelectProductType = (event) => {
-    this.setState({ searchProductType: event.target.value }, () =>
-      this.filterProducts()
+    this.setState(
+      { ...this.state, searchProductType: event.target.value },
+      () => this.filterProducts()
     );
   };
 
