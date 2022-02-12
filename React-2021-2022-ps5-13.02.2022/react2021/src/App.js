@@ -4,7 +4,7 @@ import AddProducts from "./components/AddProducts/AddProducts";
 import ProductsFilters from "./components/ProductsFilters/ProductsFilters";
 import styles from "./App.module.scss";
 import produkty from "./common/consts/produkty";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function App() {
   const [products, setProducts] = useState(produkty);
