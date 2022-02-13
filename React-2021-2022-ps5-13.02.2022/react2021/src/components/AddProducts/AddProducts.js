@@ -6,14 +6,12 @@ function AddProducts(props) {
   const [newProductType, setNewProductType] = useState("");
   const [isFoodProduct, setIsFoodProduct] = useState(false);
   const handleNewProductNameChange = (event) => {
-    setNewProductName((prev) => event.target.value);
+    setNewProductName(event.target.value);
   };
   const handleNewProductTypeChange = (event) => {
-    setNewProductType((prev) => event.target.value);
+    setNewProductType(event.target.value);
   };
-  const handleIsFoodProductChange = (event) => {
-    setIsFoodProduct(event.target.checked);
-  };
+
   const addProduct = () => {
     props.addNewProduct({
       nazwa: newProductName,
@@ -21,12 +19,12 @@ function AddProducts(props) {
       produktSpozywczy: isFoodProduct,
     });
     setNewProductName("");
-    setIsFoodProduct((prev) => !prev);
+    setIsFoodProduct(false);
     setNewProductType("");
   };
 
   return (
-    <div className={styles.Wrapper}>
+    <div>
       Add products
       <label>Nazwa produktu:</label>
       <input
