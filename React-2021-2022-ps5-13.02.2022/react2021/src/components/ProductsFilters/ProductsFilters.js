@@ -1,5 +1,6 @@
 import React from "react";
-import styles from "../../common/styles/Headers.module.scss";
+import { Button } from "react-bootstrap";
+import { Divider } from "@material-ui/core";
 
 class ProductsFilters extends React.Component {
   constructor(props) {
@@ -13,7 +14,6 @@ class ProductsFilters extends React.Component {
 
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.reset !== this.props.reset) {
-      console.log(this.props);
       this.handleResetFilters();
     }
   };
@@ -45,17 +45,19 @@ class ProductsFilters extends React.Component {
     let filteredProducts = produkty.filter((product) =>
       product.nazwa.toLowerCase().includes(searchPhrase.toLowerCase())
     );
+
     if (searchOnlyFood) {
       filteredProducts = filteredProducts.filter(
         (product) => product.produktSpozywczy
       );
     }
+
     if (searchProductType) {
       filteredProducts = filteredProducts.filter(
         (product) => product.kategoria === searchProductType
       );
     }
-    // przekazanie wyfiltrowanych pojazdów do komponentu rodzica (App)
+
     this.props.sendFilteredProductsToParentComponent(filteredProducts);
   };
 
@@ -76,46 +78,70 @@ class ProductsFilters extends React.Component {
     const { produkty } = this.props;
     const productsTypeList = produkty.map((product) => product.kategoria);
     const uniqueProductsList = [...new Set(productsTypeList)];
-    console.log(uniqueProductsList);
     return uniqueProductsList;
   };
 
   render() {
     const uniqueProductsTypes = this.getUniqueProductsTypes();
     const { searchPhrase, searchProductType, searchOnlyFood } = this.state;
+
     return (
       <div>
         <div>
-          <h3>Filtry Produktów</h3>
-          <input
-            value={searchPhrase}
-            placeholder='Szukaj według słowa kluczowego'
-            onChange={this.handleSearchPhraseChange}
-          ></input>
-          <p> Tylko produkty spożywcze </p>
+          <p className='title is-4 is-spaced' style={{ color: "#774C60" }}>
+            Filtry produktów
+          </p>
+          <Divider style={{ marginBottom: "15px" }}></Divider>
+          <div className='field'>
+            <label className='label'>Filtruj według słowa kluczowego:</label>
+            <div className='control'>
+              <input
+                className='input'
+                value={searchPhrase}
+                placeholder='Szukaj według słowa kluczowego'
+                onChange={this.handleSearchPhraseChange}
+              ></input>
+            </div>
+          </div>
+        </div>
+        <div className='field'>
           <input
             type='checkbox'
             onChange={this.handleOnlyFoodChange}
             checked={searchOnlyFood}
-          ></input>
-          <p>
-            Kategorie:{" "}
-            <select
-              value={searchProductType}
-              onChange={this.handleSelectProductType}
-            >
-              <option key={"all"} value={""}>
-                All types
-              </option>
-              {uniqueProductsTypes.map((kategoria) => (
-                <option key={kategoria} value={kategoria}>
-                  {kategoria}
-                </option>
-              ))}
-            </select>
-          </p>
-          <button onClick={this.handleResetFilters}>Zresetuj filtry</button>
+          ></input>{" "}
+          <label style={{ marginTop: "12px" }} className='checkbox'>
+            {" "}
+            Tylko produkty spożywcze
+          </label>
         </div>
+        <div className='field'>
+          <label className='label'>Kategorie:</label>
+          <div className='control'>
+            <div className='select'>
+              <select
+                value={searchProductType}
+                onChange={this.handleSelectProductType}
+              >
+                <option key={"all"} value={""}>
+                  All types
+                </option>
+                {uniqueProductsTypes.map((kategoria) => (
+                  <option key={kategoria} value={kategoria}>
+                    {kategoria}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
+        <Button
+          variant='success'
+          onClick={this.handleResetFilters}
+          disabled={!searchPhrase && !searchOnlyFood && !searchProductType}
+        >
+          Zresetuj filtry
+        </Button>
       </div>
     );
   }

@@ -1,37 +1,22 @@
 import React from "react";
 import commonColumnsStyles from "../../common/styles/Columns.module.scss";
+import styles from "../../App.module.scss";
 
-class ProductsList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  // let productsList = props.produkty.map((product) => (
-  //   <li
-  //     onClick={(event) => props.addToShoppingList(event.target.textContent)}
-  //     key={product.nazwa}
-  //   >
-  //     {product.nazwa}
-  //   </li>
-  // ));
+function ProductsList(props) {
+  const productsList = props.produkty.map((product) => (
+    <li onClick={() => props.addToShoppingList(product)} key={product.nazwa}>
+      {product.nazwa}
+    </li>
+  ));
 
-  render() {
-    const productsList = this.props.produkty.map((product) => (
-      <li
-        onClick={() => this.props.addToShoppingList(product)}
-        key={product.nazwa}
-      >
-        {product.nazwa}
-      </li>
-    ));
-    return (
-      <div className={commonColumnsStyles.App}>
-        <header className={commonColumnsStyles.AppHeader}>
-          <p>Lista produktów:</p>
-          <ul>{productsList}</ul>
-        </header>
+  return (
+    <div className={commonColumnsStyles.App}>
+      <div className={styles.shoppingList}>
+        <h2>Lista produktów:</h2>
+        <ul>{productsList}</ul>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default ProductsList;

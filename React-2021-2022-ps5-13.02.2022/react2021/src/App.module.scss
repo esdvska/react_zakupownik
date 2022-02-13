@@ -1,9 +1,30 @@
 .appWrapper {
   display: flex;
   flex-direction: column;
+  background-color: #9a7e7e;
+  background-image: url("./img/shopping.png");
+  background-position: center;
+  background-size: contain;
 }
 
 .columnsWrapper {
   display: flex;
-  height: calc(100vh - 100px);
+  min-height: calc(70vh - 100px);
+}
+
+.cardsWrapper {
+  margin: 4vh;
+}
+
+.shoppingList {
+  min-height: 80%;
+  margin: auto;
+  width: 80%;
+  padding: 50px;
+  border-radius: 50px;
+  background: linear-gradient(315deg, #8b7171, #a58787);
+  box-shadow: -20px -20px 60px #836b6b, 20px 20px 60px #b19191;
+  li {
+    font-size: 1.5rem;
+  }
 }

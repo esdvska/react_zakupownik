@@ -1,16 +1,8 @@
 import commonColumnsStyles from "../../common/styles/Columns.module.scss";
 import { useEffect, useState } from "react";
+import styles from "../../App.module.scss";
 
 function ShopingList(props) {
-  const lineAutoStyle = {
-    textDecoration: "auto",
-  };
-
-  const lineThroughStyle = {
-    textDecoration: "line-through",
-  };
-  const [style, setStyle] = useState(lineAutoStyle);
-  const [selectedID, setSelectedID] = useState();
   const [productsToBuy, setProductsToBuy] = useState(null);
 
   useEffect(() => {
@@ -20,6 +12,7 @@ function ShopingList(props) {
   const removeFromShoppingList = (id) => {
     props.remove(productsToBuy.filter((product) => product.id !== id));
   };
+
   const lineThroughProduct = (event, id) => {
     event.preventDefault();
     props.lineThrough(id);
@@ -32,12 +25,6 @@ function ShopingList(props) {
           removeFromShoppingList(product.id);
         }}
         onContextMenu={(event) => {
-          // let newArray = [...productsToBuy];
-          // newArray[index] = {
-          //   ...productsToBuy[index],
-          //   isClicked: !productsToBuy[index].isClicked,
-          // };
-
           lineThroughProduct(event, index);
         }}
         key={product.id}
@@ -46,17 +33,16 @@ function ShopingList(props) {
         }}
       >
         {product.nazwa}
-        {/* {product.isClicked.toString()} */}
       </li>
     );
   });
 
   return (
     <div className={commonColumnsStyles.App}>
-      <header className={commonColumnsStyles.AppHeader}>
-        <p>Shoping List</p>
+      <div className={styles.shoppingList}>
+        <h2>Lista zakupów</h2>
         <ul>{productsToDisplay}</ul>
-      </header>
+      </div>
     </div>
   );
 }

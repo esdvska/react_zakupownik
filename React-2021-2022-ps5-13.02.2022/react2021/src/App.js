@@ -7,6 +7,7 @@ import produkty from "./common/consts/produkty";
 
 import { useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
+import { Paper, CardContent } from "@material-ui/core";
 
 function App() {
   const [products, setProducts] = useState(produkty);
@@ -27,34 +28,49 @@ function App() {
     );
   };
   const addNewProduct = (product) => {
-    if (products.some((oldProduct) => oldProduct.nazwa === product.nazwa)) {
+    if (
+      products.some(
+        (oldProduct) =>
+          oldProduct.nazwa.toLowerCase() === product.nazwa.toLowerCase()
+      )
+    ) {
       alert(
         "Nie możesz dodać do lisy dostępnych produktów produktu, który już istnieje"
       );
       return;
     }
     setProducts((prev) => [...prev, product]);
-    setProductsToDisplay((prev) => [...products, product]);
+    setProductsToDisplay([...products, product]);
     setResetFilters((prev) => !prev);
   };
 
   return (
     <div className={styles.appWrapper}>
-      <Container>
-        <Row className='justify-content-md-center mx-0'>
-          <Col xs lg='6'>
-            <AddProducts addNewProduct={addNewProduct} />
-          </Col>
+      <div className={styles.cardsWrapper}>
+        <Container>
+          <Row className='justify-content-md-center'>
+            <Col xs lg='6'>
+              <Paper elevation={5}>
+                <CardContent style={{ height: "350px" }}>
+                  <AddProducts addNewProduct={addNewProduct} />
+                </CardContent>
+              </Paper>
+            </Col>
 
-          <Col xs lg='6'>
-            <ProductsFilters
-              produkty={products}
-              reset={resetFilters}
-              sendFilteredProductsToParentComponent={setProductsToDisplay}
-            />
-          </Col>
-        </Row>
-      </Container>
+            <Col xs lg='6'>
+              <Paper elevation={5}>
+                <CardContent style={{ height: "350px" }}>
+                  <ProductsFilters
+                    produkty={products}
+                    reset={resetFilters}
+                    sendFilteredProductsToParentComponent={setProductsToDisplay}
+                  />
+                </CardContent>
+              </Paper>
+            </Col>
+          </Row>
+        </Container>
+      </div>
       <div className={styles.columnsWrapper}>
         <ProductsList
           produkty={productsToDisplay}
